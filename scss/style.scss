@@ -1,0 +1,161 @@
+.container {
+  min-width: 970px !important;
+}
+
+.panel-heading {
+  background-color: lighten(#000, 30%) !important;
+}
+
+.panel {
+  background-color: #efefef;
+}
+
+//main-time
+.main-time {
+  float: right;
+}
+
+.inner-time {
+  font-size: 0;
+
+  .inner-hours {
+    font-size: 14px;
+  }
+
+  .blink {
+    font-size: 14px;
+  }
+
+  .inner-minutes {
+    font-size: 14px;
+  }
+}
+
+//btns
+.btn-group {
+  display: block;
+  margin: 20px 0;
+  text-align: center;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+
+  li {
+    display: inline-block;
+
+    .btn {
+      width: 150px;
+      border-radius: 15px;
+    }
+  }
+}
+
+//template
+.flight-info {
+  background-color: #fff;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  min-height: 100px;
+
+  & > .row {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.carrier-brand {
+  border-right: 1px solid #efefef;
+  min-height: 100px;
+  position: relative;
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+  }
+}
+
+.flight-city {
+  font-weight: bold;
+  color: lighten(#000, 50%);
+  font-size: 16px;
+}
+
+.city-name {
+  display: block;
+}
+
+.departure-time {
+  color: lighten(#000, 50%);
+  font-size: 18px;
+}
+
+.plane-ico {
+  font-size: 20px;
+  text-align: center;
+  padding-left: 35px;
+
+  i {
+    transform: rotate(90deg);
+  }
+}
+
+.arrival-time {
+  font-size: 18px;
+  color: #5cb85c;
+}
+
+.flight-number {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.flight-status {
+  font-size: 18px;
+  text-align: center;
+
+  .status {
+    font-size: 30px;
+    display: inline-block;
+    vertical-align: middle;
+
+    &:after {
+      display: inline-block;
+      content: '';
+      vertical-align: middle;
+    }
+  }
+}
+
+//flight statuses
+.canceled {
+  border-right: 5px solid #d9534f;
+
+  &-status {
+    color: #d9534f;
+  }
+}
+
+.landed {
+  border-right: 5px solid #337ab7;
+
+  &-status {
+    color: #337ab7;
+  }
+}
+
+.normal {
+  border-right: 5px solid #5cb85c;
+
+  &-status {
+    color: #5cb85c;
+  }
+}
+
+.alert-danger[role="alert"] {
+  display: none;
+}

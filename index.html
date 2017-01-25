@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Moscow Airports Flight Information</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span>Moscow Airports Flight Information</span>
+                <div class="main-time">
+                    <span class="date"></span>
+                    <span class="divider">|</span>
+                    <span class="inner-time">
+                        <span class="inner-hours"></span>
+                        <span class="blink" style="opacity: 0;">:</span>
+                        <span class="inner-minutes"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <form>
+                        <div class="col-xs-3">
+                            <label for="airport" class="control-label">Select The Airport</label>
+                            <select class="form-control" id="airport" name="airport">
+                                <option value="dme">Domodedovo</option>
+                                <option value="svo">Sheremetyevo</option>
+                                <option value="vko">Vnukovo</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="date" class="control-label">Select The Date</label>
+                            <input type="date" id="date" name="date" class="form-control">
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="initial-time" class="control-label">Select Initial Time</label>
+                            <input type="time" class="form-control" id="initial-time" name="initial-time" placeholder="Initial Hour" value="00:00">
+                        </div>
+                        <div class="col-xs-3">
+                            <label for="hours" class="control-label">Select Time Interval</label>
+                            <input type="number" placeholder="Hours" id="hours" class="form-control" name="time-interval" max="6" min="1" value="1">
+                        </div>
+                        <div class="col-xs-12">
+                            <ul class="btn-group">
+                                <li>
+                                    <a href="#" class="btn btn-default" role="button" data-value="departures">Departures</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="btn btn-default" role="button" data-value="arrivals">Arrivals</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+                <div class="alert alert-danger fade in" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    Please fill out all required fields
+                </div>
+                <div id="root" class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <script type="text/template" id="list-template">
+        <% result.forEach((data) => { %>
+        <% if (data.status == "Landed") {%> 
+        <div class="col-xs-12 flight-info landed">
+        <%} else if (data.status == "Canceled") {%>
+        <div class="col-xs-12 flight-info canceled">
+        <%} else {%>
+        <div class="col-xs-12 flight-info normal">
+        <%} %>  
+            <div class="row">
+                <div class="col-xs-3 carrier-brand">
+                    <img src="<%-data.carrier.src %>"
+                    alt="<%-data.carrier.name %>" title="<%-data.carrier.name %>" class="img-responsive">
+                </div>
+                <div class="col-xs-6">
+                    <div class="col-xs-4">
+                        <p class="flight-city">
+                            <span class="city-name">
+                            <%-data.city1 %>
+                            </span>
+                            <%-data.departureAirportFsCode %>
+                        </p>
+                        <span class="departure-time">
+                            <%-data.departureDate %>
+                        </span>
+                    </div>
+                    <div class="col-xs-4">
+                        <span class="plane-ico">
+                            <i class="glyphicon glyphicon-plane"></i>
+                        </span>
+                        <p>
+                        <%-data.equipment %> 
+                        </p>
+                    </div>
+                    <div class="col-xs-4">
+                        <p class="flight-city">
+                            <span class="city-name">
+                                <%-data.city2 %>
+                            </span>
+                            <%-data.arrivalAirportFsCode %>
+                        </p>
+                        <span class="arrival-time">
+                            <%-data.arrivalDate %>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-1 flight-number">
+                    #<%-data.flightNumber %>
+                </div>
+                <div class="col-xs-2 flight-status">
+                <% if (data.status == "Landed") {%>
+                    <span class="status landed-status">&#8226;</span>
+                <%} else if (data.status == "Canceled") {%>
+                    <span class="status canceled-status">&#8226;</span>
+                <%} else {%>
+                    <span class="status normal-status">&#8226;</span>
+                <%} %>  
+                    <span>
+                        <%-data.status %>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
