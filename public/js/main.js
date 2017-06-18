@@ -119,7 +119,7 @@ $(document).ready(function () {
             // timeInterval
             requestedNumHours = values.timeInterval;
 
-        var url = 'https://api.flightstats.com/flex/flightstatus/rest/v2/jsonp/airport/status/' + requestedAirport + '/' + flightType + '/' + requestedDate + '/' + requestedHour + '\?appId=e02ef204\&appKey=4dde8e859605616094b4557d8da88f9b\&utc=false&numHours=' + requestedNumHours;
+        var url = '/info/' + requestedAirport + '/' + flightType + '/' + requestedDate + '/' + requestedHour + '\?appId=e02ef204\&appKey=4dde8e859605616094b4557d8da88f9b\&utc=false&numHours=' + requestedNumHours;
 
         $.ajax({
             url: url,
